@@ -3,7 +3,7 @@
 #
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
-#
+
 
 # i3 config file (v4)
 #
@@ -15,6 +15,7 @@ set $app_manager rofi -show run
 set $terminal kitty
 set $ide kitty exec nvim
 
+exec --no-startup-id clipit
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -26,6 +27,7 @@ font pango:monospace 8
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
+exec polybar example
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -56,6 +58,7 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec kitty
 bindsym $mod+a exec rofi -show drun
 bindsym $mod+Shift+s exec flameshot gui
+bindsym $mod+e exec dolphin
 
 # kill focused window
 bindsym $mod+q kill
@@ -73,29 +76,28 @@ gaps outer 3
 gaps inner 4
 
 #bar type waybar
-bar {
-    position top
-    #i3bar_command i3bar -t
-        status_command i3blocks
-        height 18
-        colors {
-            # background #222222ff
-            background #222222
-            statusline #eeeeee
-            separator #666666
-            #                   border  backgr. text
-            focused_workspace  #444444 #444444 #ffb52a
-            active_workspace   #333333 #5f676a #ffffff
-            inactive_workspace #333333 #222222 #888888
-            urgent_workspace   #2f343a #900000 #ffffff
-        }
-}
+# bar {
+#     position top
+#     #i3bar_command i3bar -t
+#         height 18
+#         colors {
+#             # background #222222ff
+#             background #222222
+#             statusline #eeeeee
+#             separator #666666
+#             #                   border  backgr. text
+#             focused_workspace  #444444 #444444 #ffb52a
+#             active_workspace   #333333 #5f676a #ffffff
+#             inactive_workspace #333333 #222222 #888888
+#             urgent_workspace   #2f343a #900000 #ffffff
+#         }
+# }
 
 # Window Border
 for_window [class="^.*"] border pixel 0
 
 # execs
-exec feh --bg-fill /home/dbergman/Pictures/wallpaper_nord_1.png
+exec_always --no-startup-id ~/.config/i3/random_wallpaper.sh
 exec picom -b -f
 
 # A less useful, but rather funny example:
@@ -139,7 +141,6 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
